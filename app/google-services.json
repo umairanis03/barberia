@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "297701947813",
+    "firebase_url": "https://barberia-cee3d.firebaseio.com",
+    "project_id": "barberia-cee3d",
+    "storage_bucket": "barberia-cee3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297701947813:android:21630b9555ccdd44",
+        "android_client_info": {
+          "package_name": "com.example.barberia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "297701947813-bgq0cef4sbk5gc3gejn44aj6k2n3anhd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.barberia",
+            "certificate_hash": "60697d64be18910ab40ccc909324f524b7b4a100"
+          }
+        },
+        {
+          "client_id": "297701947813-56adpgn6hitapk9s4n2l8h4tgh767p27.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXZ5pJ3b0pnBw_yIUkF8K0wKF2scTcsu0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "297701947813-56adpgn6hitapk9s4n2l8h4tgh767p27.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
