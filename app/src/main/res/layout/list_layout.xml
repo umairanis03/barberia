@@ -45,6 +45,12 @@
                 android:text="EndTime"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
+            <Button
+                android:id="@+id/book_layot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
 
         </RelativeLayout>
 

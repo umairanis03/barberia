@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import java.util.List;
 public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotViewHolder> {
 
     private Context mCtx;
+
     private List<Slots> slotList_Adapter;
 
     public SlotAdapter(Context mCtx, List<Slots> slotList_Adapter) {
@@ -46,7 +48,16 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotViewHolder
         holder.start_time.setText(slot.getStart_time());
         holder.end_time.setText(slot.getEnd_time());
 
+
         // holder.slot_id.setEnabled(false);
+
+        holder.book_lay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double booking_id=Math.random()%1000;
+                FirebaseDatabase.getInstance().getReference("").setValue(booking_id);
+            }
+        });
 
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +88,7 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotViewHolder
 
         TextView slot_id, start_time, end_time;
         LinearLayout parent;
+        Button book_lay;
 
         public SlotViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,6 +97,9 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotViewHolder
             start_time = itemView.findViewById(R.id.startTime);
             end_time = itemView.findViewById(R.id.endTime);
             parent = itemView.findViewById(R.id.parent_slots);
+            book_lay=itemView.findViewById(R.id.book_layot);
+
+
 
         }
     }
