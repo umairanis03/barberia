@@ -15,11 +15,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class Book extends AppCompatActivity {
-    RecyclerView recyclerView;
+    //RecyclerView recyclerView;
     SlotAdapter adapter;
     ArrayList<Slots> slots = new ArrayList<>();
 
-
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
 
     @Override
@@ -29,21 +31,17 @@ public class Book extends AppCompatActivity {
 
         foo();
 
-        recyclerView =(RecyclerView) findViewById(R.id.recycleView);
-        recyclerView.hasFixedSize();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = (RecyclerView) findViewById(R.id.recycleView);
+        // recyclerView.hasFixedSize();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
-        adapter=new SlotAdapter(this,slots);
-        recyclerView.setAdapter(adapter);
+        Log.d("here", "chala");
 
 
         ////arraylist
-
-
-
-
 
 
     }
@@ -57,8 +55,6 @@ public class Book extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 
-
-
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             String slot_id = snapshot.getKey();
                             String start_time = snapshot.child("start_time").getValue(String.class);
@@ -67,14 +63,18 @@ public class Book extends AppCompatActivity {
 
 
                             Slots slot = new Slots(slot_id, start_time, end_time, booking_id);
-                            Log.d("id",booking_id);
-                            String null_String="null";
-                            if(booking_id.equals(null_String))
-                                slots.add(slot);
+                            Log.d("id", booking_id);
+                            String null_String = "null";
+                            //if(booking_id.equals(null_String))
+                            slots.add(slot);
 
                         }
 
-                       // Log.d("Cool", slots.get(0).getBooking_id());
+
+                        adapter = new SlotAdapter(Book.this, slots);
+                        recyclerView.setAdapter(adapter);
+
+                        // Log.d("Cool", slots.get(0).getBooking_id());
 
                     }
 
