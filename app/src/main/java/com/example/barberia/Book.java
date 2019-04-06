@@ -60,6 +60,7 @@ public class Book extends AppCompatActivity {
                             String start_time = snapshot.child("start_time").getValue(String.class);
                             String end_time = snapshot.child("end_time").getValue(String.class);
                             String booking_id = snapshot.child("booking_id").getValue(String.class);
+                            Log.d("hell","aaya to h");
 
 
                             Slots slot = new Slots(slot_id, start_time, end_time, booking_id);

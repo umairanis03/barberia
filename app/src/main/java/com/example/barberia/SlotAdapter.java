@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
@@ -41,9 +43,36 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotViewHolder
 
     }
 
+    static String getAlphaNumericString(int n)
+    {
+
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(n);
+
+        for (int i = 0; i < n; i++) {
+
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index
+                    = (int)(AlphaNumericString.length()
+                    * Math.random());
+
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+
+        return sb.toString();
+    }
+
     @Override
     public void onBindViewHolder(@NonNull SlotViewHolder holder, final int i) {
-        Slots slot = slotList_Adapter.get(i);
+        final Slots slot = slotList_Adapter.get(i);
         holder.slot_id.setText(slot.getSlot_id());
         holder.start_time.setText(slot.getStart_time());
         holder.end_time.setText(slot.getEnd_time());
@@ -51,11 +80,17 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotViewHolder
 
         // holder.slot_id.setEnabled(false);
 
+        final FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+
         holder.book_lay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double booking_id=Math.random()%1000;
-                FirebaseDatabase.getInstance().getReference("").setValue(booking_id);
+                String random_string=getAlphaNumericString(7);
+                FirebaseDatabase.getInstance().getReference( ).child("users").child(currentFirebaseUser.getUid()).child("booking_id").setValue(random_string);
+                FirebaseDatabase.getInstance().getReference( ).child("slots").child(slot.getSlot_id()).child("booking_id").setValue(random_string);
+                FirebaseDatabase.getInstance().getReference( ).child("booking").setValue(random_string);
+
+
             }
         });
 
@@ -104,3 +139,5 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotViewHolder
         }
     }
 }
+
+
