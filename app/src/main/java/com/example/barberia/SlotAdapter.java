@@ -1,6 +1,8 @@
 package com.example.barberia;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +18,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -75,20 +80,47 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotViewHolder
         final Slots slot = slotList_Adapter.get(i);
         holder.slot_id.setText(slot.getSlot_id());
         holder.start_time.setText(slot.getStart_time());
-        holder.end_time.setText(slot.getEnd_time());
-
-
-        // holder.slot_id.setEnabled(false);
+//        holder.end_time.setText(slot.getEnd_time());
 
         final FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
 
         holder.book_lay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String random_string=getAlphaNumericString(7);
-                FirebaseDatabase.getInstance().getReference( ).child("users").child(currentFirebaseUser.getUid()).child("booking_id").setValue(random_string);
-                FirebaseDatabase.getInstance().getReference( ).child("slots").child(slot.getSlot_id()).child("booking_id").setValue(random_string);
-                FirebaseDatabase.getInstance().getReference( ).child("booking").setValue(random_string);
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(mCtx);
+                builder1.setMessage("Are you sure you want to book " + slot.getSlot_id() + " ?");
+                builder1.setCancelable(true);
+
+                builder1.setPositiveButton(
+                        "Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                String random_string=getAlphaNumericString(7);
+                                FirebaseDatabase.getInstance().getReference( ).child("users").child(currentFirebaseUser.getUid()).child("booking_id").setValue(random_string);
+                                FirebaseDatabase.getInstance().getReference( ).child("slots").child(slot.getSlot_id()).child("booking_id").setValue(random_string);
+                                FirebaseDatabase.getInstance().getReference().child("bookings").child(currentFirebaseUser.getUid()).setValue(random_string);
+
+
+
+                            }
+                        });
+
+                builder1.setNegativeButton(
+                        "No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+
+
+
+
 
 
             }
@@ -99,16 +131,6 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotViewHolder
             public void onClick(View v) {
                 Toast.makeText(mCtx, "Position: " + i, Toast.LENGTH_SHORT).show();
 
-                FirebaseDatabase.getInstance().getReference("").setValue("")
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    // Hide progress bar
-                                    notifyDataSetChanged();
-                                }
-                            }
-                        });
             }
         });
 
@@ -130,7 +152,7 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotViewHolder
 
             slot_id = itemView.findViewById(R.id.slotId);
             start_time = itemView.findViewById(R.id.startTime);
-            end_time = itemView.findViewById(R.id.endTime);
+            //end_time = itemView.findViewById(R.id.endTime);
             parent = itemView.findViewById(R.id.parent_slots);
             book_lay=itemView.findViewById(R.id.book_layot);
 

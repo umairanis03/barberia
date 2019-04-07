@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -23,11 +24,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
+import com.shobhitpuri.custombuttons.GoogleSignInButton;
 
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     SignInButton button;
+    GoogleSignInButton button2;
     FirebaseAuth mAuth;
     private final static int RC_SIGN_IN=2;
     GoogleApiClient mGoogleApiClient;
@@ -47,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button=(SignInButton) findViewById(R.id.googlebtn);
+        button2= (GoogleSignInButton) findViewById(R.id.signInButton);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -65,14 +68,23 @@ public class MainActivity extends AppCompatActivity {
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
 
-
-        button.setOnClickListener(new View.OnClickListener() {
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
-
             }
         });
+
+
+
+
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                signIn();
+//
+//            }
+//        });
         mAuthListner=new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -89,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 //                    FirebaseDatabase.getInstance().getReference("users/" + uid + "/")
 //                            .updateChildren(map);
 
-                    startActivity(new Intent(MainActivity.this,Dashboard.class));
+                    startActivity(new Intent(MainActivity.this,Dashboard.class));finish();
 
 
                 }

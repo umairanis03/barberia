@@ -1,9 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_slots"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MyBookings">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="126dp"
+            android:background="#fff"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/SLOTID"
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Slot number"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/STARTTIME"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/slotId"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="61dp"
+                android:text="StartTime"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/ENDTIME"
+                android:layout_width="157dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/SLOTID"
+                android:layout_marginStart="77dp"
+                android:layout_marginLeft="77dp"
+                android:layout_marginTop="-19dp"
+                android:layout_marginRight="-378dp"
+                android:layout_toLeftOf="@+id/STARTTIME"
+                android:layout_toEndOf="@+id/SLOTID"
+                android:layout_toRightOf="@+id/SLOTID"
+                android:text="EndTime"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/BOOKING_ID"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ENDTIME"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="48dp"
+                android:layout_toRightOf="@+id/STARTTIME"
+                android:text="Booking Id"
+                android:textColor="#000" />
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
