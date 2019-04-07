@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
@@ -96,11 +97,14 @@ public class SlotAdapter extends RecyclerView.Adapter<SlotAdapter.SlotViewHolder
                         "Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
+
                                 String random_string=getAlphaNumericString(7);
                                 FirebaseDatabase.getInstance().getReference( ).child("users").child(currentFirebaseUser.getUid()).child("booking_id").setValue(random_string);
+                                Log.d("Error",slot.getSlot_id());
                                 FirebaseDatabase.getInstance().getReference( ).child("slots").child(slot.getSlot_id()).child("booking_id").setValue(random_string);
                                 FirebaseDatabase.getInstance().getReference().child("bookings").child(currentFirebaseUser.getUid()).setValue(random_string);
+                                dialog.cancel();
+
 
 
 

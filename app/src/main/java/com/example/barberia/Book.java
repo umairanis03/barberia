@@ -46,11 +46,11 @@ public class Book extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            String slot_id = "Slot No. " + snapshot.getKey();
+                            String slot_id = snapshot.getKey();
                             String start_time = snapshot.child("start_time").getValue(String.class)+ " - " + snapshot.child("end_time").getValue(String.class);
                             String booking_id = snapshot.child("booking_id").getValue(String.class);
                             Slots slot = new Slots(slot_id, start_time,booking_id);
-                            String null_String = "null";
+                            //String null_String = "null";
                             //if (booking_id.equals(null_String))
                                 slots.add(slot);
 
